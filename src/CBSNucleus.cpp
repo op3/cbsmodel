@@ -33,7 +33,7 @@
 #include <gsl/gsl_integration.h>
 #include <gsl/gsl_sf_coupling.h>
 
-#include <boost/math/special_functions/bessel.hpp>
+//#include <boost/math/special_functions/bessel.hpp>
 
 
 
@@ -516,11 +516,11 @@ double CBSNucleus::QtJ_Qt2(unsigned L)
 // quantization condition
 double Q_nu_r_beta(double nu, double r_beta, double z_M)
 {
-	using namespace boost::math;
-	return cyl_bessel_j<long double, long double>(nu, z_M) * cyl_neumann<long double, long double>(nu, r_beta*z_M) -
-		   cyl_bessel_j<long double, long double>(nu, r_beta*z_M) * cyl_neumann<long double, long double>(nu, z_M);
-//	return gsl_sf_bessel_Jnu(nu, z_M) * gsl_sf_bessel_Ynu(nu, r_beta*z_M) -
-//		   gsl_sf_bessel_Jnu(nu, r_beta*z_M) * gsl_sf_bessel_Ynu(nu, z_M);
+//	using namespace boost::math;
+//	return cyl_bessel_j<long double, long double>(nu, z_M) * cyl_neumann<long double, long double>(nu, r_beta*z_M) -
+//		   cyl_bessel_j<long double, long double>(nu, r_beta*z_M) * cyl_neumann<long double, long double>(nu, z_M);
+	return gsl_sf_bessel_Jnu(nu, z_M) * gsl_sf_bessel_Ynu(nu, r_beta*z_M) -
+		   gsl_sf_bessel_Jnu(nu, r_beta*z_M) * gsl_sf_bessel_Ynu(nu, z_M);
 }
 
 // this is a version of Q compatible with all the GSL algorithms
