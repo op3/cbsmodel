@@ -1,0 +1,18 @@
+CBS model
+------------------------------------------------------------------------
+This program allows to calculate predictions of the "Confined beta-Soft 
+Rotor model. That is a geometrical nuclear structure model applicable in 
+the R_4/2-range from 2.90 to 3.33 for even-even nuclei. It interpolates 
+between the the critical point X(5) rnd the rigid rotor limit by means 
+of one structure parameter r_beta which ranges from 0 to 1.
+
+A user manual for the usage of the program is provided in 
+/doc/manual.pdf
+
+This program was written by Michael Reese (reese@ikp.tu-darmstadt.de)
+
+Install by typing:
+  ./configure
+  make
+  make install (as root)
+
