@@ -20,17 +20,23 @@ The computer program \textit{cbs} allows to calculate predictions of the \textit
 \end{figure}
 
 \section{Installation}
+Unpack the source tarball and enter the resulting directory by typing
+\\~\\
+\verb!tar -zxvf cbsmodel-1.0.tar.gz!
+\verb!cd cbsmodel-1.0!
+\\~\\
 The Program makes use of the \textit{GNU scientific library} and the \textit{readline library}. If they are both properly installed on the system, you can compile the cbs source code by entering 
-
+\\~\\
+\verb!./configure! \\
 \verb!make! \\
-To install the executable, you have to copy it to a location of your choice (typically \verb!/usr/bin! or \verb!$HOME/bin!).
+\verb!make install!  (as root)\\
 
 \section{User Guide}
 The program \textit{cbs} can be operated interactively, via command line arguments or with an input file.
 \subsection{Interactive Mode}
 To enter the interactive mode of \textit{cbs}, just type 
 
-\verb!cbs! \\
+\verb!cbsmodel! \\
 in the terminal. You should see a command prompt 
 
 \verb!>>>! \\
@@ -123,21 +129,21 @@ To get an overview over all available commands type
 \subsection{Command Line Mode}
 The exact same commands as in the interactive mode can be executed when they are passed as command line arguments. If you start the CBS program like this
 
-\verb!cbs A 154 Z 62! \\
+\verb!cbsmodel A 154 Z 62! \\
 You enter the interactive mode and the values for $A$ and $Z$ are already set up to work with $^{154}{\rm Sm}$. If you don't want to end up in the interactive mode you have to give \verb!exit! as the last of the command line arguments. For example just calculating the $2^{+}_1$ energy for the default parameters goes like this
 
-\verb!cbs energy 2 0 exit! \\
+\verb!cbsmodel energy 2 0 exit! \\
 Fitting to experimental data, calculating a matrix element and exit goes like this
 
-\verb!cbs A 154 Z 62 fit 154Sm rb Bbm2 bmax ME 0 1 0 0 exit! \\
+\verb!cbsmodel A 154 Z 62 fit 154Sm rb Bbm2 bmax ME 0 1 0 0 exit! \\
 If you find the verbosity of the fitting annoying, you can spice the call with the \verb!simpleoutput! command
 
-\verb!cbs A 154 Z 62 simpleoutput fit 154Sm rb Bbm2 bmax ME 0 1 0 0 exit!
+\verb!cbsmodel A 154 Z 62 simpleoutput fit 154Sm rb Bbm2 bmax ME 0 1 0 0 exit!
 
 \subsection{Input File Mode}
 Since \textit{cbs} reads its input from stdin, you can simply place all commands in one simple text file (each line contains one command) and start the program like this
 
-\verb!cbs < inputfile! \\
+\verb!cbsmodel < inputfile! \\
 You can also combine command line usage with an input file.
 
 
