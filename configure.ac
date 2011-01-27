@@ -11,12 +11,14 @@ AC_PROG_CXX
 AM_PROG_CC_STDC
 AC_HEADER_STDC
 
-# check for GNU scientific library
+# check for libm and GSL (GNU scientific library)
+# these lines are taken from the GSL manual
 AC_CHECK_LIB([m],[cos])
 AC_CHECK_LIB([gslcblas],[cblas_dgemm])
 AC_CHECK_LIB([gsl],[gsl_blas_dgemm])
 
 # check for readline library
+# these lines are taken from the autoconf manual
 AC_CHECK_LIB([readline], [main])
 
 # we want to have these makefiles 
