@@ -1,9 +1,11 @@
-AC_INIT([cbsmodel], [1.0], [You@that.place])
+AC_INIT([cbsmodel], [1.0], [reese@ikp.tu-darmstadt.de])
 AM_INIT_AUTOMAKE(AC_PACKAGE_NAME, AC_PACKAGE_VERSION)
 
 AM_MAINTAINER_MODE
 AM_CONFIG_HEADER(config.h)
 
+# I don't know exactly what these are for ...
+# the AC_PROG_CXX is because we are using c++
 AC_ISC_POSIX
 AC_PROG_CXX
 AM_PROG_CC_STDC
@@ -17,6 +19,7 @@ AC_CHECK_LIB([gsl],[gsl_blas_dgemm])
 # check for readline library
 AC_CHECK_LIB([readline], [main])
 
+# we want to have these makefiles 
 AC_CONFIG_FILES([
 	Makefile
 	src/Makefile
