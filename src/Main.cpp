@@ -830,7 +830,7 @@ std::string process_command(std::string &command, CBS::CBSNucleus &ncl, int &n_e
 			if (!com_in) 
 				std::cout << " expecting: \'ME2 L1 s1  L2 s2\'" << std::endl;
 			else	
-				std::cout << ncl.matrix_element(L1,s1, L2,s2, 1);
+				std::cout << ncl.reducedME2(L1,s1, L2,s2);
 		}
 		break;
 		case tok_BE2:

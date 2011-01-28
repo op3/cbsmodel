@@ -137,10 +137,14 @@ class CBSNucleus
 		
 		// reduced transition strength
 		double BE2(unsigned L1, unsigned s1, unsigned L2, unsigned s2);
+
+		// reduced matrix element
+		double reducedME2(unsigned L1, unsigned s1, unsigned L2, unsigned s2);
 		
 		// quadrupole moment
 		double Qt(unsigned L1, unsigned s1, unsigned L2, unsigned s2);
-		// quadrupole moment ratio Qt(J)/Qt(2)
+		
+		// quadrupole moment ratio Qt(L)/Qt(2)
 		double QtJ_Qt2(unsigned L);
 		
 		// reduced E0 transition strength

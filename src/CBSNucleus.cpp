@@ -464,13 +464,13 @@ double CBSNucleus::matrix_element(unsigned L1, unsigned s1, unsigned L2, unsigne
 
 double clebsch_gordan(double j1, double m1, double j2, double m2, double j3, double m3)
 {
-	int _j1 = static_cast<int>(2*j1+0.5);
-	int _j2 = static_cast<int>(2*j2+0.5);
-	int _j3 = static_cast<int>(2*j3+0.5);
+	int _j1 = round(2*j1);
+	int _j2 = round(2*j2);
+	int _j3 = round(2*j3);
 
-	int _m1 = static_cast<int>(2*m1+0.5);
-	int _m2 = static_cast<int>(2*m2+0.5);
-	int _m3 = static_cast<int>(2*m3+0.5);
+	int _m1 = round(2*m1);
+	int _m2 = round(2*m2);
+	int _m3 = round(2*m3);
 	
 	return ((((_j1-_j2+_m3)/2)%2)?(-1):(1)) * sqrt(_j3 + 1)
 			* gsl_sf_coupling_3j(_j1, _j2, _j3, _m1, _m2, _m3);
@@ -483,6 +483,15 @@ double CBSNucleus::BE2(unsigned L1, unsigned s1, unsigned L2, unsigned s2)
 	double cl = clebsch_gordan(L1, 0, 2, 0, L2, 0);
 	double Wu_factor = use_Wu()?(1.0/(5.94e-6*pow(A(),4.0/3.0))):1;
 	return ME*ME * cl*cl* qE2() * Wu_factor;
+}
+
+// reduced matrix element
+double CBSNucleus::reducedME2(unsigned L1, unsigned s1, unsigned L2, unsigned s2)
+{
+	int k = 1; // for E2 transition
+	double ME = matrix_element(L1,s1,L2,s2, k);
+	double cl = clebsch_gordan(L1, 0, 2, 0, L2, 0);
+	return sqrt(5.0/16.0/M_PI) * Qt(L1,s1,L2,s2) * cl;
 }
 
 double CBSNucleus::rho2E0(unsigned L1, unsigned s1, unsigned L2, unsigned s2)
