@@ -17,6 +17,8 @@
 //    You should have received a copy of the GNU General Public License
 //    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+#include "config.h"
+
 #include <cmath>
 #include <vector>
 #include <iostream>
@@ -24,8 +26,12 @@
 #include <sstream>
 #include <fstream>
 #include <string>
+
+#ifdef HAVE_LIBREADLINE
 #include <readline/readline.h>
 #include <readline/history.h>
+#endif
+
 #include <gsl/gsl_const_mksa.h>
 #include <gsl/gsl_errno.h>
 
@@ -1017,7 +1023,7 @@ std::string process_command(std::string &command, CBS::CBSNucleus &ncl, int &n_e
 }
 
 
- 	
+#ifdef HAVE_LIBREADLINE
 // A static variable for holding the line
 static char *line_read = (char*)0;
 
@@ -1043,9 +1049,11 @@ char *rl_gets()
 
 	return (line_read);
 }
+#endif
 
 void add_command_to_history(std::string &cmd)
 {
+#ifdef HAVE_LIBREADLINE
 	if (line_read)
 	{
 		free(line_read);
@@ -1056,6 +1064,7 @@ void add_command_to_history(std::string &cmd)
 
 	if (line_read && *line_read)
 		add_history (line_read);
+#endif
 }
 
 int main(int argc, char *argv[])
@@ -1063,7 +1072,7 @@ int main(int argc, char *argv[])
 	// output license
 	if (argc == 1)
 		startup(argv[0]);
-		
+
 	gsl_set_error_handler_off();
 
 	// initial parameters for the CBS nucleus
@@ -1091,7 +1100,7 @@ int main(int argc, char *argv[])
 		if (arg == "-h" || arg == "--help" || arg == "help")
 		{
 			std::string command = "help";
-			add_command_to_history(command);		    
+			add_command_to_history(command);
 			std::cout << process_command(command, ncl, n_errors, end) << std::endl;	
 		}
 		
@@ -1099,10 +1108,10 @@ int main(int argc, char *argv[])
 		    arg == "help" || arg == "license" || arg == "info" || arg == "Wu" || arg == "noWu")
 		{
 			std::string command = arg;
-			add_command_to_history(command);		    
+			add_command_to_history(command);
 			std::cout << process_command(command, ncl, n_errors, end);
 			if (arg != "exit" && !simple_output)
-				std::cout << std::endl;	
+				std::cout << std::endl;
 		}
 		else if (arg == "Z" || arg == "A" || 
 			arg == "rb" || arg == "Bbm2" || arg == "chi" || 
@@ -1125,15 +1134,15 @@ int main(int argc, char *argv[])
 					command += argv[++i];
 					if (simple_output)
 						do_output = false;
-				}	
-			}	
-			add_command_to_history(command);		    
+				}
+			}
+			add_command_to_history(command);
 			std::string output = process_command(command, ncl, n_errors, end);
 			if (do_output)
 			{
 				std::cout << output;
-				std::cout << std::endl;	
-			}		
+				std::cout << std::endl;
+			}
 			
 			if (end)
 				return n_errors;
@@ -1145,10 +1154,10 @@ int main(int argc, char *argv[])
 			command += " ";
 			if (i+1 < argc)
 				command += argv[++i];
-			add_command_to_history(command);		    
+			add_command_to_history(command);
 			std::cout << process_command(command, ncl, n_errors, end);
 			if (!simple_output)
-				std::cout << std::endl;	
+				std::cout << std::endl;
 			
 			if (end)
 				return n_errors;
@@ -1161,10 +1170,10 @@ int main(int argc, char *argv[])
 			{
 				command += " "; command += argv[++i];
 				command += " "; command += argv[++i];
-			}	
-			add_command_to_history(command);		    
-			std::cout << process_command(command, ncl, n_errors, end);	
-			std::cout << std::endl;	
+			}
+			add_command_to_history(command);
+			std::cout << process_command(command, ncl, n_errors, end);
+			std::cout << std::endl;
 		}
 		else if (arg == "waveeps")
 		{
@@ -1176,9 +1185,9 @@ int main(int argc, char *argv[])
 				command += " "; command += argv[++i];
 				command += " "; command += argv[++i];
 			}	
-			add_command_to_history(command);		    
-			std::cout << process_command(command, ncl, n_errors, end);	
-			std::cout << std::endl;	
+			add_command_to_history(command);
+			std::cout << process_command(command, ncl, n_errors, end);
+			std::cout << std::endl;
 		}
 		else if (arg == "BE2" || arg == "rho2E0" || arg == "ME2" || arg == "wavedat" || 
 				 arg == "Erange" || arg == "Efull")
@@ -1191,10 +1200,10 @@ int main(int argc, char *argv[])
 				command += " "; command += argv[++i];
 				command += " "; command += argv[++i];
 				command += " "; command += argv[++i];
-			}	
-			add_command_to_history(command);		    
-			std::cout << process_command(command, ncl, n_errors, end);	
-			std::cout << std::endl;	
+			}
+			add_command_to_history(command);
+			std::cout << process_command(command, ncl, n_errors, end);
+			std::cout << std::endl;
 		}
 		else if (arg == "BE2range")
 		{
@@ -1209,9 +1218,9 @@ int main(int argc, char *argv[])
 				command += " "; command += argv[++i];
 				command += " "; command += argv[++i];
 			}	
-			add_command_to_history(command);		    
-			std::cout << process_command(command, ncl, n_errors, end);	
-			std::cout << std::endl;	
+			add_command_to_history(command);
+			std::cout << process_command(command, ncl, n_errors, end);
+			std::cout << std::endl;
 		}
 		else if (arg == "fit")
 		{
@@ -1239,18 +1248,18 @@ int main(int argc, char *argv[])
 							data_mode = false;
 					}
 					command += " ";
-					command += argv[i];	
+					command += argv[i];
 				}
 				else
 				{
 					--i;
 					break;
-				}	
+				}
 			}
 			
-			add_command_to_history(command);		    
-			std::cout << process_command(command, ncl, n_errors, end);	
-			std::cout << std::endl;	
+			add_command_to_history(command);
+			std::cout << process_command(command, ncl, n_errors, end);
+			std::cout << std::endl;
 		}
 		else
 		{
@@ -1258,7 +1267,7 @@ int main(int argc, char *argv[])
 			
 			++n_errors;
 			return n_errors;
-		}	
+		}
 	}
 	
 	// main loop for command input
@@ -1266,17 +1275,29 @@ int main(int argc, char *argv[])
 	{
 		while (!end)
 		{
+#ifdef HAVE_LIBREADLINE
 			// version with GNU readline
 			char *line_rl = rl_gets();
 			std::string command(line_rl);
-					
+#else
+			// version without GNU readline
+			std::string command;
+			std::cout << ">>> ";
+			std::getline(std::cin,command);
+			if (!std::cin)
+			{
+				std::cout << std::endl;
+				break;
+			}
+#endif
 			// check for comments
 			char first_char;
 			std::istringstream com_in(command);
 			com_in >> first_char; 
 			if (first_char == '#' || !com_in)
-				continue;			
+				continue;
 
+			// remove a trailing comment
 			size_t comment_pos = command.find('#');
 			if (comment_pos != command.npos)
 				command.erase(comment_pos);
@@ -1294,6 +1315,4 @@ int main(int argc, char *argv[])
 	
 	return n_errors;
 }
-	
-	
-	
+

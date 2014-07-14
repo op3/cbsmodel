@@ -1,11 +1,8 @@
-AC_INIT([cbsmodel], [1.0], [reese@ikp.tu-darmstadt.de])
-AM_INIT_AUTOMAKE(AC_PACKAGE_NAME, AC_PACKAGE_VERSION)
+AC_INIT([cbsmodel], [1.1], [reese@ikp.tu-darmstadt.de])
+AC_PREREQ([2.64])
+AM_INIT_AUTOMAKE([1.11 -Wall])
 
-AM_MAINTAINER_MODE
-AM_CONFIG_HEADER(config.h)
-
-# I don't know exactly what these are for ...
-# the AC_PROG_CXX is because we are using c++
+AC_CONFIG_HEADERS([config.h])
 AC_ISC_POSIX
 AC_PROG_CXX
 AM_PROG_CC_STDC
@@ -21,10 +18,5 @@ AC_CHECK_LIB([gsl],[gsl_blas_dgemm])
 # these lines are taken from the autoconf manual
 AC_CHECK_LIB([readline], [main])
 
-# we want to have these makefiles 
-AC_CONFIG_FILES([
-	Makefile
-	src/Makefile
-])
+AC_CONFIG_FILES([Makefile])
 AC_OUTPUT
-
