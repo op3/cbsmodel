@@ -28,6 +28,7 @@
 #include <gsl/gsl_blas.h>
 #include <gsl/gsl_multifit_nlin.h>
 #include <gsl/gsl_deriv.h>
+#include <gsl/gsl_version.h>
 
 
 // C coordinate type
@@ -241,7 +242,8 @@ class Fit
 			gsl_matrix_free(J);
 #else
 			gsl_multifit_covar(s->J, 0.0, result_covar);
-#endif		}
+#endif		
+		}
 		void calc_chi()
 		{
 			result_chi = gsl_blas_dnrm2(s->f);
