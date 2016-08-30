@@ -234,8 +234,14 @@ class Fit
 		
 		void calc_covar()
 		{
+#if GSL_MAJOR_VERSION >= 2
+			gsl_matrix *J = gsl_matrix_alloc(dsize, psize);
+			gsl_multifit_fdfsolver_jac(s, J);
+			gsl_multifit_covar(J, 0.0, result_covar);
+			gsl_matrix_free(J);
+#else
 			gsl_multifit_covar(s->J, 0.0, result_covar);
-		}
+#endif		}
 		void calc_chi()
 		{
 			result_chi = gsl_blas_dnrm2(s->f);
