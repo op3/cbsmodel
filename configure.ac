@@ -1,4 +1,4 @@
-AC_INIT([cbsmodel], [1.1], [reese@ikp.tu-darmstadt.de])
+AC_INIT([cbsmodel], [1.2], [reese@ikp.tu-darmstadt.de])
 AC_PREREQ([2.64])
 AM_INIT_AUTOMAKE([1.11 -Wall])
 
