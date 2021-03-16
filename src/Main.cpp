@@ -40,146 +40,145 @@
 
 void help(std::ostream &hout)
 {
-	hout << "------------ CBS help  ----------" << std::endl;
-	hout << std::endl;
-	hout << "List of all parameters:" << std::endl;
-	hout << "A       : parameter            number of Nucleons" << std::endl;
-	hout << "Z       : parameter            number of Protons" << std::endl;
-	hout << "rb      : parameter, fitable   stiffness in the interval ]0,1[ (unitless)" << std::endl;
-	hout << "Bbm2    : parameter, fitable   B*bmax^2, energy scaling in units of hbar^2 / keV" << std::endl;
-	hout << "chi     : parameter, fitable   next order in quadrupole operator (unitless)" << std::endl;
-	hout << "bmax    : parameter, fitable   maximal deformation (unitless) " << std::endl;
-	hout << "E0      : parameter, fitable   energy of the ground state in units of keV" << std::endl;
-	hout << "eps     : parameter, fitable   admixture of rigid rotor (unitless)" << std::endl;
-	hout << "bf      : parameter, fitable   factor for energies of the beta band (unitless)" << std::endl;
-	hout << "bs      : parameter, fitable   offset on the beta band energies in units of keV" << std::endl;
-	hout << "L0      : parameter            offset for angular momentum" << std::endl;
-	hout << "s0      : parameter            offset for beta excitation" << std::endl;
-	hout << "maxfitsteps: parameter         maximum number of fit steps" << std::endl;
-	hout << std::endl;
-	hout << "Examples:" << std::endl;
-	hout << std::endl;
-	hout << "Type: \'Z\' to see the current value of parameter Z" << std::endl;
-	hout << "Type: \'chi 0.5\' to set the current value of" << std::endl;
-	hout << "      parameter chi to 0.5" << std::endl;
-	hout << std::endl;
-	hout << std::endl;
-	hout << "IMPORTANT: differently as in the paper" << std::endl;
-	hout << "N. Pietralla and O. M. Gorbachenko, Phys. Rev. C 70, 011304(R) (2004)" << std::endl;
-	hout << "the quantum number \'s\' starts counting from zero!!" << std::endl;
-	hout << std::endl;
-	hout << std::endl;
-	hout << "List of commands:" << std::endl;
-	hout << "energy  L s : calculate energy of level (L,s)" << std::endl;
-	hout << "Erange  L1 s1  L2 s2 : calculate energies of level (L,s) with " << std::endl;
-	hout << "                            L1 <= L <= L2   and   s1 <= s <= s2" << std::endl;
-	hout << "Erange  L s n_gamma K : calculate energy with all quantum numbers" << std::endl;
-	hout << "ME2  L1 s1  L2 s2 : caluculate matrix element <L1,s1|E2|L2,s2>" << std::endl;
-	hout << "BE2  L1 s1  L2 s2 : calculate B(E2;(L1,s1)->(L2,s2))" << std::endl;
-	hout << "rho2E0  L1 s1  L2 s2 : calculate rho^2(E0;(L1,s1)->(L2,s2))" << std::endl;
-	hout << "fit  (filename|\'begindata DATA \'enddata) {parameter}" << std::endl;
-	hout << "                  : fits the given parameters to the" << std::endl;
-	hout << "                    data in file \'filename\' or the" << std::endl;
-	hout << "                    data between the keywords \'begindata\'" << std::endl;
-	hout << "                    and \'enddata\' " << std::endl;
-	hout << "store  filename : store all parameters in file 'filename'" << std::endl;
-	hout << "load  fileanme : load all parameters from file 'filename'" << std::endl;
-	hout << "Wu : use Weisskopf units for transition strengths" << std::endl;
-	hout << "noWu : don't use Weisskopf units for transition strengths" << std::endl;
-	hout << "       use e^2 b^2 for B(E2) strength" << std::endl;
-	hout << "       and 10^{-3} for rho^2(E0) strength" << std::endl;
-	hout << "simpleoutput : use simplified output scheme" << std::endl;
-	hout << "fulloutput : use default output scheme" << std::endl;
-	hout << "outprecision : precision of number output" << std::endl;
-	hout << "wavedat L s filename samples : write wave function data" << std::endl;
-	hout << "                               into file 'filename'" << std::endl;
-	hout << "waveeps L s filename : create eps file of wavefunction" << std::endl;
-	hout << "wavedisp L s : display wavefunction" << std::endl;
-	hout << "help : ouptut this help   " << std::endl;
-	hout << "info : output program information   " << std::endl;
-	hout << "license : output license information" << std::endl;
-	hout << "exit : quit the program   " << std::endl;
-	hout << std::endl;
-	hout << "Examples:" << std::endl;
-	hout << std::endl;
-	hout << "Type: \'energy 4 0\' to calculate the level" << std::endl;
-	hout << "      energy of the (L=4,s=0)-state in " << std::endl;
-	hout << "      units of keV" << std::endl;
-	hout << "Type: \'BE2 4 0 2 0\' to calculate the transition" << std::endl;
-	hout << "       strength from the (L=4,s=0)-state to the" << std::endl;
-	hout << "       (L=2,s=0)-state in units of e^2*b^2" << std::endl;
-	hout << "Type: \'rho2E0 0 1 0 0\' to calculate the transition" << std::endl;
-	hout << "       strength from the (L=0,s=1)-state to the" << std::endl;
-	hout << "       (L=0,s=0)-state in units of 10^{-3}" << std::endl;
-	hout << "Type: \'fit 154Sm.dat rb Bbm2 bmax\' to fit the" << std::endl;
-	hout << "      parameters rb, Bbm2 and bmax to the data" << std::endl;
-	hout << "      in file \"154Sm.dat\"" << std::endl;
-	hout << "Type: \'fit begindata E 2 0 87.0 1.0 E 4 0 286.0 1.0 enddata rb Bbm2\'" << std::endl;
-	hout << "      to fit the parameters directly to the given datapoints" << std::endl;
-	hout << "      without reading datapoints from a file" << std::endl;
-	hout << "Type: \'store 154Sm.params\' to write the current" << std::endl;
-	hout << "      values of all parameters to the file" << std::endl;
-	hout << "      \"154Sm.params\"" << std::endl;
-	hout << "Type: \'wavedat 10 0 154Sm.wave 100\' to write the" << std::endl;
-	hout << "      wavefunction data of the (L=10,s=0)-state" << std::endl;
-	hout << "      with 100 samples to the file \"154Sm.wave\"" << std::endl;
-	hout << "Type: \'waveeps 10 0 154Sm.eps\' to plot the wavefunction" << std::endl;
-	hout << "      of the (L=10,s=0)-state to the file \"154Sm.eps\"" << std::endl;
-	hout << "Type: \'wavedisp 10 1' to display the wavefunction" << std::endl;
-	hout << "      of the data of the (L=10,s=0)-state" << std::endl;
-	hout << std::endl;
-	hout << "Example of an inputfile for a fit:" << std::endl;
-	hout << "E 2 0       87.7 0.2  #for energy level (L=2,s=0)" << std::endl;
-	hout << "E 4 0      286.5 0.3  #for energy level (L=4,s=0)" << std::endl;
-	hout << "BE2 2 0 0 0 1.15 0.02 #for B(E2) transition strength" << std::endl;
-	hout << "                      #from (L=2,s=0) to (L=0,s=0)" << std::endl;
-	hout << std::endl;
-	hout << std::endl;
-	hout << "Every command can be given as command line argument, too." << std::endl;
-	hout << std::endl;
-	hout << "To end the program type \'exit\'" << std::endl;
+	hout << R"(------------ CBS help  ----------
+List of all parameters:
+A       : parameter            number of Nucleons
+Z       : parameter            number of Protons
+rb      : parameter, fitable   stiffness in the interval ]0,1[ (unitless)
+Bbm2    : parameter, fitable   B*bmax^2, energy scaling in units of hbar^2 / keV
+chi     : parameter, fitable   next order in quadrupole operator (unitless)
+bmax    : parameter, fitable   maximal deformation (unitless) 
+E0      : parameter, fitable   energy of the ground state in units of keV
+eps     : parameter, fitable   admixture of rigid rotor (unitless)
+bf      : parameter, fitable   factor for energies of the beta band (unitless)
+bs      : parameter, fitable   offset on the beta band energies in units of keV
+L0      : parameter            offset for angular momentum
+s0      : parameter            offset for beta excitation
+maxfitsteps: parameter         maximum number of fit steps
+
+Examples:
+
+Type: 'Z' to see the current value of parameter Z
+Type: 'chi 0.5' to set the current value of
+      parameter chi to 0.5
+
+
+IMPORTANT: differently as in the paper
+N. Pietralla and O. M. Gorbachenko, Phys. Rev. C 70, 011304(R) (2004)
+the quantum number 's' starts counting from zero!!
+
+
+List of commands:
+energy  L s : calculate energy of level (L,s)
+Erange  L1 s1  L2 s2 : calculate energies of level (L,s) with 
+                            L1 <= L <= L2   and   s1 <= s <= s2
+Erange  L s n_gamma K : calculate energy with all quantum numbers
+ME2  L1 s1  L2 s2 : caluculate matrix element <L1,s1|E2|L2,s2>
+BE2  L1 s1  L2 s2 : calculate B(E2;(L1,s1)->(L2,s2))
+rho2E0  L1 s1  L2 s2 : calculate rho^2(E0;(L1,s1)->(L2,s2))
+fit  (filename|'begindata DATA 'enddata) {parameter}
+                  : fits the given parameters to the
+                    data in file 'filename' or the
+                    data between the keywords 'begindata'
+                    and 'enddata' 
+store  filename : store all parameters in file 'filename'
+load  fileanme : load all parameters from file 'filename'
+Wu : use Weisskopf units for transition strengths
+noWu : don't use Weisskopf units for transition strengths
+       use e^2 b^2 for B(E2) strength
+       and 10^{-3} for rho^2(E0) strength
+simpleoutput : use simplified output scheme
+fulloutput : use default output scheme
+outprecision : precision of number output
+wavedat L s filename samples : write wave function data
+                               into file 'filename'
+waveeps L s filename : create eps file of wavefunction
+wavedisp L s : display wavefunction
+help : ouptut this help   
+info : output program information   
+license : output license information
+exit : quit the program   
+
+Examples:
+
+Type: 'energy 4 0' to calculate the level
+      energy of the (L=4,s=0)-state in 
+      units of keV
+Type: 'BE2 4 0 2 0' to calculate the transition
+       strength from the (L=4,s=0)-state to the
+       (L=2,s=0)-state in units of e^2*b^2
+Type: 'rho2E0 0 1 0 0' to calculate the transition
+       strength from the (L=0,s=1)-state to the
+       (L=0,s=0)-state in units of 10^{-3}
+Type: 'fit 154Sm.dat rb Bbm2 bmax' to fit the
+      parameters rb, Bbm2 and bmax to the data
+      in file "154Sm.dat"
+Type: 'fit begindata E 2 0 87.0 1.0 E 4 0 286.0 1.0 enddata rb Bbm2'
+      to fit the parameters directly to the given datapoints
+      without reading datapoints from a file
+Type: 'store 154Sm.params' to write the current
+      values of all parameters to the file
+      "154Sm.params"
+Type: 'wavedat 10 0 154Sm.wave 100' to write the
+      wavefunction data of the (L=10,s=0)-state
+      with 100 samples to the file "154Sm.wave"
+Type: 'waveeps 10 0 154Sm.eps' to plot the wavefunction
+      of the (L=10,s=0)-state to the file "154Sm.eps"
+Type: 'wavedisp 10 1' to display the wavefunction
+      of the data of the (L=10,s=0)-state
+
+Example of an inputfile for a fit:
+E 2 0       87.7 0.2  #for energy level (L=2,s=0)
+E 4 0      286.5 0.3  #for energy level (L=4,s=0)
+BE2 2 0 0 0 1.15 0.02 #for B(E2) transition strength
+                      #from (L=2,s=0) to (L=0,s=0)
+
+
+Every command can be given as command line argument, too.
+
+To end the program type 'exit')" << '\n';
 }
 
 void info(std::ostream &iout)
 {
-    iout << "CBS - a program to fit parameters and calculate excitation energies" << std::endl;
-	iout << "and transition strengths within the \"Confined Beta Soft\" rotor model" << std::endl; 
-	iout << "N. Pietralla and O. M. Gorbachenko, Phys. Rev. C 70, 011304(R) (2004)" << std::endl; 
+    iout << R"(CBS - a program to fit parameters and calculate excitation energies
+and transition strengths within the "Confined Beta Soft" rotor model 
+N. Pietralla and O. M. Gorbachenko, Phys. Rev. C 70, 011304(R) (2004))" << '\n';
 }
 
 void license(std::ostream &lout)
 {
-    lout << "CBS - a program to fit parameters and calculate excitation energies" << std::endl;
-	lout << "and transition strengths within the \"Confined Beta Soft\" rotor model" << std::endl; 
-	lout << "N. Pietralla and O. M. Gorbachenko, Phys. Rev. C 70, 011304(R) (2004)" << std::endl; 
-	lout << std::endl;
-	lout << "Copyright (C) 2008  Michael Reese (email: reese@ikp.tu-darmstadt.de)" << std::endl;
-	lout << std::endl;
-	lout << "This program is free software: you can redistribute it and/or modify" << std::endl;
-	lout << "it under the terms of the GNU General Public License as published by" << std::endl;
-	lout << "the Free Software Foundation, either version 3 of the License, or" << std::endl;
-	lout << "(at your option) any later version." << std::endl;
-	lout << std::endl;
-	lout << "This program is distributed in the hope that it will be useful," << std::endl;
-	lout << "but WITHOUT ANY WARRANTY; without even the implied warranty of" << std::endl;
-	lout << "MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the" << std::endl;
-	lout << "GNU General Public License for more details." << std::endl;
-	lout << std::endl;
-	lout << "You should have received a copy of the GNU General Public License" << std::endl;
-	lout << "along with this program.  If not, see <http://www.gnu.org/licenses/>." << std::endl;
+    lout << R"(CBS - a program to fit parameters and calculate excitation energies
+and transition strengths within the \"Confined Beta Soft\" rotor model 
+N. Pietralla and O. M. Gorbachenko, Phys. Rev. C 70, 011304(R) (2004) 
+
+Copyright (C) 2008  Michael Reese (email: reese@ikp.tu-darmstadt.de)
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.)" << '\n';
 }
 
 // this text will be shown after calling the program
 // without any command line arguments
 void startup(char *argv0)
 {
-	std::cout << std::endl;
-	std::cout << "CBS Copyright (C) 2008 Michael Reese (email: reese@ikp.tu-darmstadt.de)" << std::endl;
-   	std::cout << "This program comes with ABSOLUTELY NO WARRANTY;" << std::endl;
-   	std::cout << "This is free software, and you are welcome to redistribute it" << std::endl;
-   	std::cout << "under certain conditions; type \'license\' for details." << std::endl;
-   	std::cout << std::endl;
-	std::cout << "Type \'info\' for more information or \'help\' for instructions" << std::endl << std::endl;
+	std::cout << R"(
+CBS Copyright (C) 2008 Michael Reese (email: reese@ikp.tu-darmstadt.de)
+This program comes with ABSOLUTELY NO WARRANTY;
+This is free software, and you are welcome to redistribute it
+under certain conditions; type 'license' for details.
+
+Type 'info' for more information or 'help' for instructions)" << "\n\n";
 }
 
 bool simple_output = false;
@@ -200,19 +199,19 @@ void wavefunction(CBS::CBSNucleus &ncl, unsigned L, unsigned s, std::string file
 	std::ofstream out("__wavefunction.dat");
 	ncl.wavefunction(wf, L, s, 1000);
 	for (unsigned i = 0; i < wf.size(); ++ i)
-		out << ncl.r_beta()*1.0+(1.0-ncl.r_beta()*1.0)*i/(1000.0-1) << " " << wf[i] << std::endl;
+		out << ncl.r_beta()*1.0+(1.0-ncl.r_beta()*1.0)*i/(1000.0-1) << " " << wf[i] << '\n';
 		
 // gnuplot eps output
 	out.close();
 	out.open("__wavefunction.gnuplot");
-	out << "set grid" << std::endl;
+	out << "set grid\n";
 	if (disp)
 	{
-		out << "set terminal png" << std::endl;
-		out << "set xlabel \"b\" " << std::endl;
-		out << "set output \"__disp.png\"" << std::endl;
-		out << "plot["<<1.0*ncl.r_beta()<<":"<<1.0<<"] \"__wavefunction.dat\" using 1:($2**2) w l lt 3 lw 4 title \"b^4*|xi(b)|^2 (L = " << L << ", s = " << s << ")\",\\" << std::endl;
-		out << "\"__wavefunction.dat\" using 1:2 w l lt 1 lw 4 title \"b^2 * xi(b) (L = " << L << ", s = " << s << ")\", 0 lt -1 lw 4 title \"\"" << std::endl;
+		out << "set terminal png\n";
+		out << "set xlabel \"b\"\n";
+		out << "set output \"__disp.png\"\n";
+		out << "plot["<<1.0*ncl.r_beta()<<":"<<1.0<<"] \"__wavefunction.dat\" using 1:($2**2) w l lt 3 lw 4 title \"b^4*|xi(b)|^2 (L = " << L << ", s = " << s << ")\",\\\n";
+		out << "\"__wavefunction.dat\" using 1:2 w l lt 1 lw 4 title \"b^2 * xi(b) (L = " << L << ", s = " << s << ")\", 0 lt -1 lw 4 title \"\"\n";
 	}	
 	else
 	{
@@ -221,15 +220,15 @@ void wavefunction(CBS::CBSNucleus &ncl, unsigned L, unsigned s, std::string file
 		if (last < 3 || filename[last-3] != '.' || filename[last-2] != 'e' || filename[last-1] != 'p' || filename[last] != 's')
 			filename += ".eps"; 
 	
-		out << "set terminal postscript enhanced eps solid color" << std::endl;
-		out << "set xlabel \"{/Symbol b} / {/Symbol b}_M\" " << std::endl;
-		out << "set output \"" << filename << std::endl;
-		out << "plot["<<1.0*ncl.r_beta()<<":"<<1.0<<"] \"__wavefunction.dat\" using 1:($2**2) w l lt 3 lw 4 title \"{/Symbol b}^4|{/Symbol x}({/Symbol b})|^2 (L = " << L << ", s = " << s << ")\",\\" << std::endl;
-		out << "\"__wavefunction.dat\" using 1:2 w l lt 1 lw 4 title \"{/Symbol b}^2{/Symbol x}({/Symbol b}) (L = " << L << ", s = " << s << ")\", 0 lt 7 lw 4 title \"\"" << std::endl;
+		out << "set terminal postscript enhanced eps solid color" << '\n';
+		out << "set xlabel \"{/Symbol b} / {/Symbol b}_M\" " << '\n';
+		out << "set output \"" << filename << '\n';
+		out << "plot["<<1.0*ncl.r_beta()<<":"<<1.0<<"] \"__wavefunction.dat\" using 1:($2**2) w l lt 3 lw 4 title \"{/Symbol b}^4|{/Symbol x}({/Symbol b})|^2 (L = " << L << ", s = " << s << ")\",\\" << '\n';
+		out << "\"__wavefunction.dat\" using 1:2 w l lt 1 lw 4 title \"{/Symbol b}^2{/Symbol x}({/Symbol b}) (L = " << L << ", s = " << s << ")\", 0 lt 7 lw 4 title \"\"" << '\n';
 	}	
 
-//	out << "plot["<<1.0*ncl.r_beta()<<":"<<1.0<<"] \"wavefunction.dat\" using 1:($2*$3) w l lt 3 lw 4 title \"{/Symbol b}^4|{/Symbol x}({/Symbol b})|^2 (L = " << L << ", s = " << s << ")\",\\" << std::endl;
-//	out << "0 lt 7 lw 4 title \"\"" << std::endl;
+//	out << "plot["<<1.0*ncl.r_beta()<<":"<<1.0<<"] \"wavefunction.dat\" using 1:($2*$3) w l lt 3 lw 4 title \"{/Symbol b}^4|{/Symbol x}({/Symbol b})|^2 (L = " << L << ", s = " << s << ")\",\\" << '\n';
+//	out << "0 lt 7 lw 4 title \"\"" << '\n';
 	out.close();
 	system("gnuplot __wavefunction.gnuplot");
 	if (disp)
@@ -253,7 +252,7 @@ void fit(std::istream &in, CBS::CBSNucleus &ncl)
 			break;
 			
 		std::istringstream lin(line);
-//		std::cout << line << std::endl;
+//		std::cout << line << '\n';
 		
 		// check for commented lines
 		std::string c;
@@ -312,24 +311,24 @@ void fit(std::istream &in, CBS::CBSNucleus &ncl)
 	bool abort = false;
 	if (data.size()	< 1)
 	{
-		std::cout << "no data points found" << std::endl;
+		std::cout << "no data points found" << '\n';
 		abort = true;
 	}	
 	if (params.size() < 1)
 	{
-		std::cout << "no fit parameters defined" << std::endl;
+		std::cout << "no fit parameters defined" << '\n';
 		abort = true;
 	}	
 	if (data.size() < params.size())
 	{
-		std::cout << "too few data points in file" << std::endl;
+		std::cout << "too few data points in file" << '\n';
 		abort = true;
 	}	
 	if (abort)
 	{
-		std::cout << std::endl;
-		std::cout << "expecting: \'fit filename {parameter}'" << std::endl;
-		std::cout << "where parameter has to be fitable. Type \'help\' for details." << std::endl;
+		std::cout << '\n';
+		std::cout << "expecting: \'fit filename {parameter}'" << '\n';
+		std::cout << "where parameter has to be fitable. Type \'help\' for details." << '\n';
 		return;
 	}	
 	bool verbose = true;
@@ -340,7 +339,7 @@ void fit(std::istream &in, CBS::CBSNucleus &ncl)
 		fit(ncl, data.begin(), data.end(), &(params[0]), &(params[params.size()]), verbose);
 		
 	int status = fit.fit(1e-6, maxfitsteps); 
-	//std::cerr << status << std::endl;
+	//std::cerr << status << '\n';
 	
 	std::vector<double> errors(params.size());
 	
@@ -363,41 +362,41 @@ void fit(std::istream &in, CBS::CBSNucleus &ncl)
 	{
 		if (status)
 		{
-			std::cout << std::endl;
-			std::cout << "Fit not successful" << std::endl;
+			std::cout << '\n';
+			std::cout << "Fit not successful" << '\n';
 			return;
 		}
-		std::cout << std::endl;
-		std::cout << "Fit successful" << std::endl;
-		std::cout << std::endl;
-		if (ncl.fix_r_beta())	std::cout << "rb    : " << ncl.r_beta() << " (fixed) " << std::endl;
-		else					std::cout << "rb    : " << (ncl.r_beta() = params[i]) << " +- " << errors[i] << std::endl, ++i;
+		std::cout << '\n';
+		std::cout << "Fit successful" << '\n';
+		std::cout << '\n';
+		if (ncl.fix_r_beta())	std::cout << "rb    : " << ncl.r_beta() << " (fixed) " << '\n';
+		else					std::cout << "rb    : " << (ncl.r_beta() = params[i]) << " +- " << errors[i] << '\n', ++i;
 			
-		if (ncl.fix_Bbeta_max2())	std::cout << "Bbm2  : " << ncl.Bbeta_max2() << " (fixed) " << std::endl;
-		else						std::cout << "Bbm2  : " << (ncl.Bbeta_max2() = params[i]) << " +- " << errors[i] << std::endl, ++i;
+		if (ncl.fix_Bbeta_max2())	std::cout << "Bbm2  : " << ncl.Bbeta_max2() << " (fixed) " << '\n';
+		else						std::cout << "Bbm2  : " << (ncl.Bbeta_max2() = params[i]) << " +- " << errors[i] << '\n', ++i;
 				
-		if (ncl.fix_beta_max())	std::cout << "bmax  : " << ncl.beta_max() << " (fixed) " << std::endl;
-		else				std::cout << "bmax  : " << (ncl.beta_max() = params[i]) << " +- " << errors[i] << std::endl, ++i;
+		if (ncl.fix_beta_max())	std::cout << "bmax  : " << ncl.beta_max() << " (fixed) " << '\n';
+		else				std::cout << "bmax  : " << (ncl.beta_max() = params[i]) << " +- " << errors[i] << '\n', ++i;
 			
-		if (ncl.fix_chi())	std::cout << "chi   : " << ncl.chi() << " (fixed) " << std::endl;
-		else				std::cout << "chi   : " << (ncl.chi() = params[i]) << " +- " << errors[i] << std::endl, ++i;
+		if (ncl.fix_chi())	std::cout << "chi   : " << ncl.chi() << " (fixed) " << '\n';
+		else				std::cout << "chi   : " << (ncl.chi() = params[i]) << " +- " << errors[i] << '\n', ++i;
 			
-		if (ncl.fix_E0())	std::cout << "E0    : " << ncl.E0() << " (fixed) " << std::endl;
-		else				std::cout << "E0    : " << (ncl.E0() = params[i]) << " +- " << errors[i] << std::endl, ++i;
+		if (ncl.fix_E0())	std::cout << "E0    : " << ncl.E0() << " (fixed) " << '\n';
+		else				std::cout << "E0    : " << (ncl.E0() = params[i]) << " +- " << errors[i] << '\n', ++i;
 		
-		if (ncl.fix_epsilon())	std::cout << "eps   : " << ncl.epsilon() << " (fixed) " << std::endl;
-		else					std::cout << "eps   : " << (ncl.epsilon() = params[i]) << " +- " << errors[i] << std::endl, ++i;
-		if (ncl.fix_beta_f())	std::cout << "bf    : " << ncl.beta_f() << " (fixed) " << std::endl;
-		else					std::cout << "bf    : " << (ncl.beta_f() = params[i]) << " +- " << errors[i] << std::endl, ++i;
-		if (ncl.fix_beta_s())	std::cout << "bs    : " << ncl.beta_s() << " (fixed) " << std::endl;
-		else					std::cout << "bs    : " << (ncl.beta_s() = params[i]) << " +- " << errors[i] << std::endl, ++i;
+		if (ncl.fix_epsilon())	std::cout << "eps   : " << ncl.epsilon() << " (fixed) " << '\n';
+		else					std::cout << "eps   : " << (ncl.epsilon() = params[i]) << " +- " << errors[i] << '\n', ++i;
+		if (ncl.fix_beta_f())	std::cout << "bf    : " << ncl.beta_f() << " (fixed) " << '\n';
+		else					std::cout << "bf    : " << (ncl.beta_f() = params[i]) << " +- " << errors[i] << '\n', ++i;
+		if (ncl.fix_beta_s())	std::cout << "bs    : " << ncl.beta_s() << " (fixed) " << '\n';
+		else					std::cout << "bs    : " << (ncl.beta_s() = params[i]) << " +- " << errors[i] << '\n', ++i;
 		
-		std::cout << std::endl;
-		std::cout << "reduced chisquare : " << fit.chi()*fit.chi()/(data.size()-params.size()) << std::endl;
-		std::cout << std::endl;
+		std::cout << '\n';
+		std::cout << "reduced chisquare : " << fit.chi()*fit.chi()/(data.size()-params.size()) << '\n';
+		std::cout << '\n';
 	
-		std::cout << std::setw(24) << "" << "   " << std::setw(10) << " CBS fit" << "     " << std::setw(11) << "data points     " << std::setw(10) << "residues" << std::endl;
-		std::cout << std::setw(24) << "---------------------" << "---" << std::setw(10) << "----------" << "-----" << std::setw(11) << "---------------" << std::setw(10) << "-------------------" << std::endl;
+		std::cout << std::setw(24) << "" << "   " << std::setw(10) << " CBS fit" << "     " << std::setw(11) << "data points     " << std::setw(10) << "residues" << '\n';
+		std::cout << std::setw(24) << "---------------------" << "---" << std::setw(10) << "----------" << "-----" << std::setw(11) << "---------------" << std::setw(10) << "-------------------" << '\n';
 		for (unsigned i = 0; i < data.size(); ++i)
 		{
 			std::ostringstream coord, cbs_value, exp_value, residues;
@@ -406,26 +405,26 @@ void fit(std::istream &in, CBS::CBSNucleus &ncl)
 				cbs_value << ncl.BE2(data[i].c.L1,data[i].c.s1, data[i].c.L2,data[i].c.s2),
 				exp_value << data[i].v << " +- " << data[i].s,
 				residues << (ncl.BE2(data[i].c.L1,data[i].c.s1, data[i].c.L2,data[i].c.s2) - data[i].v)/data[i].s;
-//				std::cout << data[i].c.L1 << " " << data[i].c.s1 << " -> " << data[i].c.L2 << " " << data[i].c.s2 << " : " << ncl.BE2(data[i].c.L1,data[i].c.s1, data[i].c.L2,data[i].c.s2) << " <=> " << data[i].v << " +- " << data[i].s << std::endl;
+//				std::cout << data[i].c.L1 << " " << data[i].c.s1 << " -> " << data[i].c.L2 << " " << data[i].c.s2 << " : " << ncl.BE2(data[i].c.L1,data[i].c.s1, data[i].c.L2,data[i].c.s2) << " <=> " << data[i].v << " +- " << data[i].s << '\n';
 			else if (data[i].c.type == CBS::Coordinate::rho2E0)
 				coord << "rho^2(E0; " << data[i].c.L1 << " " << data[i].c.s1 << " -> " << data[i].c.L2 << " " << data[i].c.s2 << " )", 
 				cbs_value << ncl.rho2E0(data[i].c.L1,data[i].c.s1, data[i].c.L2,data[i].c.s2),
 				exp_value << data[i].v << " +- " << data[i].s,
 				residues << (ncl.rho2E0(data[i].c.L1,data[i].c.s1, data[i].c.L2,data[i].c.s2) - data[i].v)/data[i].s;
-//				std::cout << data[i].c.L1 << " " << data[i].c.s1 << " -> " << data[i].c.L2 << " " << data[i].c.s2 << " : " << ncl.rho2E0(data[i].c.L1,data[i].c.s1, data[i].c.L2,data[i].c.s2) << " <=> " << data[i].v << " +- " << data[i].s << std::endl;
+//				std::cout << data[i].c.L1 << " " << data[i].c.s1 << " -> " << data[i].c.L2 << " " << data[i].c.s2 << " : " << ncl.rho2E0(data[i].c.L1,data[i].c.s1, data[i].c.L2,data[i].c.s2) << " <=> " << data[i].v << " +- " << data[i].s << '\n';
 			else
 				coord << "energy( " << data[i].c.L1 << " " << data[i].c.s1 << " )",
 				cbs_value << ncl.E(data[i].c.L1,data[i].c.s1),
 				exp_value << data[i].v << " +- " << data[i].s,
 				residues << (ncl.E(data[i].c.L1,data[i].c.s1) - data[i].v)/data[i].s;
-//				std::cout << data[i].c.L1 << " " << data[i].c.s1 << " : " << ncl.E(data[i].c.L1,data[i].c.s1) << " <=> " << data[i].v << " +- " << data[i].s << std::endl;
+//				std::cout << data[i].c.L1 << " " << data[i].c.s1 << " : " << ncl.E(data[i].c.L1,data[i].c.s1) << " <=> " << data[i].v << " +- " << data[i].s << '\n';
 
 			std::cout << std::setw(24) << coord.str() << " : " 
 					  << std::setw(10) << cbs_value.str() << "     " 
 					  << std::setw(10) << exp_value.str() << "     "
-					  << std::setw(10) << residues.str() << std::endl;
+					  << std::setw(10) << residues.str() << '\n';
 		}	
-		std::cout << std::endl;
+		std::cout << '\n';
 	}
 }
 
@@ -528,7 +527,7 @@ TokenValue get_token(std::istringstream &in)
 		else
 			c = in.get();	
 		
-//		std::cout << "char: " << c << std::endl;
+//		std::cout << "char: " << c << '\n';
 		
 //		if (!in)
 //			return tok_LAST;
@@ -536,9 +535,9 @@ TokenValue get_token(std::istringstream &in)
 			break;	
 			
 		token.push_back(c);
-//		std::cout << "progress: " << token << std::endl;
+//		std::cout << "progress: " << token << '\n';
 	}
-//	std::cout << "final: " << token << std::endl;
+//	std::cout << "final: " << token << '\n';
 	
 	// find the matching token string		
 	for (int i = 0; i < (int)tok_LAST; ++i)
@@ -659,7 +658,7 @@ std::string process_command(std::string &command, CBS::CBSNucleus &ncl, int &n_e
 					com_in >> str;
 					if (!com_in)
 					{
-						std::cout << "expecting \'enddata\' after \'begindata\'" << std::endl;
+						std::cout << "expecting \'enddata\' after \'begindata\'" << '\n';
 						read_error = true;
 						break;
 					}
@@ -716,7 +715,7 @@ std::string process_command(std::string &command, CBS::CBSNucleus &ncl, int &n_e
 			{
 				fin.open(filename.c_str());
 				if (!fin)
-					std::cout << "cannot open file \"" << filename << "\"" << std::endl;
+					std::cout << "cannot open file \"" << filename << "\"" << '\n';
 				fit(fin, ncl);
 			}
 			else
@@ -731,7 +730,7 @@ std::string process_command(std::string &command, CBS::CBSNucleus &ncl, int &n_e
 			unsigned L, s;
 			com_in >> L >> s;
 			if (!com_in) 
-				std::cout << " expecting: \'energy L s\'" << std::endl;
+				std::cout << " expecting: \'energy L s\'" << '\n';
 			else	
 				std::cout << ncl.E(L,s);
 		}
@@ -742,12 +741,12 @@ std::string process_command(std::string &command, CBS::CBSNucleus &ncl, int &n_e
 			unsigned L2, s2;
 			com_in >> L1 >> s1 >> L2 >> s2;
 			if (!com_in) 
-				std::cout << " expecting: \'Erange L1 s1  L2 s2\'" << std::endl;
+				std::cout << " expecting: \'Erange L1 s1  L2 s2\'" << '\n';
 			else	
 			{
 				for (unsigned L = L1; L <= L2; L += 2)
 					for (unsigned s = s1; s <= s2; s += 1)
-						std::cout << ncl.E(L,s) << std::endl;
+						std::cout << ncl.E(L,s) << '\n';
 			}		
 		}
 		break;
@@ -757,7 +756,7 @@ std::string process_command(std::string &command, CBS::CBSNucleus &ncl, int &n_e
 			int K;
 			com_in >> L >> s >> n_gamma >> K ;
 			if (!com_in) 
-				std::cout << " expecting: \'Efull L s n_gamma K\'" << std::endl;
+				std::cout << " expecting: \'Efull L s n_gamma K\'" << '\n';
 			else	
 				std::cout << ncl.Efull(L,s,n_gamma,K);
 		}
@@ -768,34 +767,34 @@ std::string process_command(std::string &command, CBS::CBSNucleus &ncl, int &n_e
 			unsigned E_max;
 			com_in >> E_max;
 			if (!com_in) 
-				std::cout << " expecting: \'Eall E_max\'" << std::endl;
+				std::cout << " expecting: \'Eall E_max\'" << '\n';
 			else	
 			{
 				for (unsigned ng = 0; ncl.Efull(0,0,ng,0) < E_max; ++ng)
 				{
-//					std::cerr << "n_gamma = " << ng << std::endl;
+//					std::cerr << "n_gamma = " << ng << '\n';
 					for (unsigned s = 0; ncl.Efull(0,s,ng,0) < E_max; ++s)
 					{
-//						std::cerr << "s = " << s << std::endl;
+//						std::cerr << "s = " << s << '\n';
 						for (unsigned K = 0 + 2*(ng%2); K <= 2*ng; K += 4)
 						{
-//							std::cerr << "K = " << K << std::endl;
+//							std::cerr << "K = " << K << '\n';
 							if (K == 0)
 							{
 								for (unsigned L = 0; L < 400 && ncl.Efull(L,s,ng,K) < E_max; L += 2)
 								{
-//									std::cerr << "L = " << L << std::endl;
+//									std::cerr << "L = " << L << '\n';
 									double E = ncl.Efull(L,s,ng,K);
 									if (E < E_max)
 									{
 										std::cout 
 											<< E << " " 
 											<< L << " " << s << " " << ng << " " << K << " " 
-											<< std::endl;
+											<< '\n';
 										if (L_max < L)
 										{
 											L_max = L;
-											std::cerr << L_max << std::endl;
+											std::cerr << L_max << '\n';
 										}	
 									}		
 								}		
@@ -804,18 +803,18 @@ std::string process_command(std::string &command, CBS::CBSNucleus &ncl, int &n_e
 							{
 								for (unsigned L = K; L < 400 && ncl.Efull(L,s,ng,K) < E_max; L += 1)
 								{
-//									std::cerr << "L = " << L << std::endl;
+//									std::cerr << "L = " << L << '\n';
 									double E = ncl.Efull(L,s,ng,K);
 									if (E < E_max)
 									{
 										std::cout 
 											<< E << " " 
 											<< L << " " << s << " " << ng << " " << K << " " 
-											<< std::endl;
+											<< '\n';
 										if (L_max < L)
 										{
 											L_max = L;
-											std::cerr << L_max << std::endl;
+											std::cerr << L_max << '\n';
 										}	
 									}		
 								}		
@@ -823,7 +822,7 @@ std::string process_command(std::string &command, CBS::CBSNucleus &ncl, int &n_e
 						}
 					}	
 				}	
-//				std::cerr << "L_max = " << L_max << std::endl;	
+//				std::cerr << "L_max = " << L_max << '\n';	
 			}	
 		}
 		break;
@@ -832,7 +831,7 @@ std::string process_command(std::string &command, CBS::CBSNucleus &ncl, int &n_e
 			unsigned L1, s1, L2, s2;
 			com_in >> L1 >> s1 >> L2 >> s2;
 			if (!com_in) 
-				std::cout << " expecting: \'ME2 L1 s1  L2 s2\'" << std::endl;
+				std::cout << " expecting: \'ME2 L1 s1  L2 s2\'" << '\n';
 			else	
 				std::cout << ncl.reducedME2(L1,s1, L2,s2);
 		}
@@ -842,7 +841,7 @@ std::string process_command(std::string &command, CBS::CBSNucleus &ncl, int &n_e
 			unsigned L1, s1, L2, s2;
 			com_in >> L1 >> s1 >> L2 >> s2;
 			if (!com_in) 
-				std::cout << " expecting: \'BE2 L1 s1  L2 s2\'" << std::endl;
+				std::cout << " expecting: \'BE2 L1 s1  L2 s2\'" << '\n';
 			else	
 				std::cout << ncl.BE2(L1,s1, L2,s2);
 		}
@@ -852,12 +851,12 @@ std::string process_command(std::string &command, CBS::CBSNucleus &ncl, int &n_e
 			unsigned L1, s1, L2, s2, dL, ds;
 			com_in >> L1 >> s1 >> L2 >> s2 >> dL >> ds;
 			if (!com_in) 
-				std::cout << " expecting: \'BE2 L1 s1  L2 s2  dL ds\'" << std::endl;
+				std::cout << " expecting: \'BE2 L1 s1  L2 s2  dL ds\'" << '\n';
 			else	
 			{
 				for (unsigned L = L1; L <= L2; L += 2)
 					for (unsigned s = s1; s <= s2; s += 1)
-						std::cout << ncl.BE2(L,s, L-dL,s-ds) << std::endl;
+						std::cout << ncl.BE2(L,s, L-dL,s-ds) << '\n';
 			}			
 		}
 		break;
@@ -866,7 +865,7 @@ std::string process_command(std::string &command, CBS::CBSNucleus &ncl, int &n_e
 			unsigned L1, s1, L2, s2;
 			com_in >> L1 >> s1 >> L2 >> s2;
 			if (!com_in) 
-				std::cout << " expecting: \'rho2E0 L1 s1  L2 s2\'" << std::endl;
+				std::cout << " expecting: \'rho2E0 L1 s1  L2 s2\'" << '\n';
 			else	
 				std::cout << ncl.rho2E0(L1,s1, L2,s2);
 		}
@@ -876,7 +875,7 @@ std::string process_command(std::string &command, CBS::CBSNucleus &ncl, int &n_e
 			std::string filename;
 			com_in >> filename;
 			if (!com_in)
-				std::cout << " expecting: \'store filename\'" << std::endl;
+				std::cout << " expecting: \'store filename\'" << '\n';
 			else
 			{
 				std::ofstream store(filename.c_str());
@@ -896,12 +895,12 @@ std::string process_command(std::string &command, CBS::CBSNucleus &ncl, int &n_e
 			std::string filename;
 			com_in >> filename;
 			if (!com_in)
-				std::cout << " expecting: \'load filename\'" << std::endl;
+				std::cout << " expecting: \'load filename\'" << '\n';
 			else
 			{
 				std::ifstream load(filename.c_str());
 				if (!load)
-					std::cout << "cannot open file \"" << filename << "\"" << std::endl;
+					std::cout << "cannot open file \"" << filename << "\"" << '\n';
 				else 
 					load >> ncl.A()
 						 >> ncl.Z()
@@ -926,7 +925,7 @@ std::string process_command(std::string &command, CBS::CBSNucleus &ncl, int &n_e
 			std::string filename;
 			com_in >> L >> s >> filename >> samples;
 			if (!com_in)
-				std::cout << " expecting: \'wavedat L s filename samples\'" << std::endl;
+				std::cout << " expecting: \'wavedat L s filename samples\'" << '\n';
 			else
 			{
 				std::vector<double> wfdat;
@@ -934,7 +933,7 @@ std::string process_command(std::string &command, CBS::CBSNucleus &ncl, int &n_e
 				
 				std::ofstream wav(filename.c_str());
 				if (!wav)
-					std::cout << "cannot open file \"" << filename << "\"" << std::endl;
+					std::cout << "cannot open file \"" << filename << "\"" << '\n';
 				else 
 					for (int i = 0; i < samples; ++i)
 						wav << ncl.r_beta() + i*(1-ncl.r_beta())/(samples-1) << " " << wfdat[i] << '\n';
@@ -947,7 +946,7 @@ std::string process_command(std::string &command, CBS::CBSNucleus &ncl, int &n_e
 			std::string filename;
 			com_in >> L >> s >> filename;
 			if (!com_in)
-				std::cout << " expecting: \'wavedat L s filename\'" << std::endl;
+				std::cout << " expecting: \'wavedat L s filename\'" << '\n';
 			else
 				wavefunction(ncl, L, s, filename);
 		}	
@@ -958,7 +957,7 @@ std::string process_command(std::string &command, CBS::CBSNucleus &ncl, int &n_e
 			std::string filename = "__disp";
 			com_in >> L >> s;
 			if (!com_in)
-				std::cout << " expecting: \'wavedat L s \'" << std::endl;
+				std::cout << " expecting: \'wavedat L s \'" << '\n';
 			else
 				wavefunction(ncl, L, s, filename);
 		}	
@@ -1013,7 +1012,7 @@ std::string process_command(std::string &command, CBS::CBSNucleus &ncl, int &n_e
 		break;
 		case tok_LAST:
 			++n_errors;
-			return std::string ("unkonwn identifier");
+			return std::string ("unknown identifier");
 		break;
 	}
 
@@ -1099,7 +1098,7 @@ int main(int argc, char *argv[])
 		{
 			std::string command = "help";
 			add_command_to_history(command);
-			std::cout << process_command(command, ncl, n_errors, end) << std::endl;	
+			std::cout << process_command(command, ncl, n_errors, end) << '\n';	
 		}
 		
 		if (arg == "simpleoutput" || arg == "fulloutput" || arg == "exit" ||
@@ -1109,7 +1108,7 @@ int main(int argc, char *argv[])
 			add_command_to_history(command);
 			std::cout << process_command(command, ncl, n_errors, end);
 			if (arg != "exit" && !simple_output)
-				std::cout << std::endl;
+				std::cout << '\n';
 		}
 		else if (arg == "Z" || arg == "A" || 
 			arg == "rb" || arg == "Bbm2" || arg == "chi" || 
@@ -1139,7 +1138,7 @@ int main(int argc, char *argv[])
 			if (do_output)
 			{
 				std::cout << output;
-				std::cout << std::endl;
+				std::cout << '\n';
 			}
 			
 			if (end)
@@ -1155,7 +1154,7 @@ int main(int argc, char *argv[])
 			add_command_to_history(command);
 			std::cout << process_command(command, ncl, n_errors, end);
 			if (!simple_output)
-				std::cout << std::endl;
+				std::cout << '\n';
 			
 			if (end)
 				return n_errors;
@@ -1171,7 +1170,7 @@ int main(int argc, char *argv[])
 			}
 			add_command_to_history(command);
 			std::cout << process_command(command, ncl, n_errors, end);
-			std::cout << std::endl;
+			std::cout << '\n';
 		}
 		else if (arg == "waveeps")
 		{
@@ -1185,7 +1184,7 @@ int main(int argc, char *argv[])
 			}	
 			add_command_to_history(command);
 			std::cout << process_command(command, ncl, n_errors, end);
-			std::cout << std::endl;
+			std::cout << '\n';
 		}
 		else if (arg == "BE2" || arg == "rho2E0" || arg == "ME2" || arg == "wavedat" || 
 				 arg == "Erange" || arg == "Efull")
@@ -1201,7 +1200,7 @@ int main(int argc, char *argv[])
 			}
 			add_command_to_history(command);
 			std::cout << process_command(command, ncl, n_errors, end);
-			std::cout << std::endl;
+			std::cout << '\n';
 		}
 		else if (arg == "BE2range")
 		{
@@ -1218,7 +1217,7 @@ int main(int argc, char *argv[])
 			}	
 			add_command_to_history(command);
 			std::cout << process_command(command, ncl, n_errors, end);
-			std::cout << std::endl;
+			std::cout << '\n';
 		}
 		else if (arg == "fit")
 		{
@@ -1257,11 +1256,11 @@ int main(int argc, char *argv[])
 			
 			add_command_to_history(command);
 			std::cout << process_command(command, ncl, n_errors, end);
-			std::cout << std::endl;
+			std::cout << '\n';
 		}
 		else
 		{
-			std::cerr << "unknown comand line option: " << argv[i] << std::endl;
+			std::cerr << "unknown command line option: " << argv[i] << '\n';
 			
 			++n_errors;
 			return n_errors;
@@ -1284,7 +1283,7 @@ int main(int argc, char *argv[])
 			std::getline(std::cin,command);
 			if (!std::cin)
 			{
-				std::cout << std::endl;
+				std::cout << '\n';
 				break;
 			}
 #endif
@@ -1301,14 +1300,14 @@ int main(int argc, char *argv[])
 				command.erase(comment_pos);
 
 			// process command and output
-			std::cout << process_command(command, ncl, n_errors, end) << std::endl;
+			std::cout << process_command(command, ncl, n_errors, end) << '\n';
 		}
 	}
 	catch (...) // there is always a sdt::logic_error when terminating the
 				// program using EOF (typing C-d). This catch avoids nasty 
 				// error messages
 	{
-		std::cout << "" << std::endl;
+		std::cout << '\n';
 	}
 	
 	return n_errors;
