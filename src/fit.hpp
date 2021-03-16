@@ -265,7 +265,7 @@ class Fit
 		}
 		gsl_matrix covar()
 		{
-			return result_covar;
+			return *result_covar;
 		}
 
 	private:
