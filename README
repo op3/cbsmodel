@@ -12,7 +12,10 @@ A user manual for the usage of the program is provided in
 This program was written by Michael Reese (reese@ikp.tu-darmstadt.de)
 
 Install by typing:
-  ./configure
-  make
-  make install (as root)
 
+    mkdir _build && cd _build
+    cmake ..
+    cmake --build .
+    cmake --build . --target install
+
+Installing is optional.
