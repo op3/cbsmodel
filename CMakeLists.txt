@@ -44,3 +44,7 @@ target_link_libraries(
     GSL::gsl
 )
 
+install(
+    TARGETS cbsmodel
+    DESTINATION bin
+)
